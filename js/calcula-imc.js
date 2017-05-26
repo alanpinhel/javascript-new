@@ -10,16 +10,16 @@ for (var i = 0; i < pacientes.length; i++) {
 
 	var tdImc = paciente.querySelector(".info-imc");
 
-	var pesoEhValido = true;
-	var alturaEhValido = true;
+	var pesoEhValido = validaAltura(altura);
+	var alturaEhValido = validaPeso(peso);
 
-	if (peso <= 0 || peso >= 1000) {
+	if (!pesoEhValido) {
 		tdImc.textContent = "Peso inválido!";
 		pesoEhValido = false;
 		paciente.classList.add("paciente-invalido");
 	}
 
-	if (altura <= 0 || altura >= 3.00) {
+	if (!alturaEhValido) {
 		tdImc.textContent = "Altura inválida!";
 		alturaEhValido = false;
 		paciente.classList.add("paciente-invalido");
@@ -33,4 +33,16 @@ function calculaImc(peso, altura) {
 	var imc = 0;
 	imc = peso / (altura * altura);
 	return imc.toFixed(2);
+}
+
+function validaPeso(peso) {
+	if (peso >= 0 && peso <= 1000)
+		return true;
+	return false;
+}
+
+function validaAltura(altura) {
+	if (altura >= 0 && altura <= 3.00)
+		return true;
+	return false;
 }
